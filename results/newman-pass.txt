@@ -1,0 +1,108 @@
+newman
+
+lab05
+
+❏ 01 Бүх зүйл зөв үед бүртгэл амжилттай (201 ok)
+↳ Оюутан
+  PUT http://localhost:3000/students/T1S [200 OK, 178B, 146ms]
+
+↳ Хичээл CS313
+  PUT http://localhost:3000/courses/T1C [200 OK, 178B, 66ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [201 Created, 202B, 25ms]
+  ✓  Happy path: Статус 201
+  ✓  Happy path: Result is Ok
+  ✓  Happy path: registrationID тоо байна
+
+❏ 05 Өмнөх холбоос үзээгүй
+↳ Оюутан
+  PUT http://localhost:3000/students/T5S [200 OK, 178B, 17ms]
+
+↳ Хичээл CS313
+  PUT http://localhost:3000/courses/T5C [200 OK, 178B, 12ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 215B, 8ms]
+  ✓  Өмнөх холбоос үзээгүй: Статус 200
+  ✓  Өмнөх холсоос үзээгүй: Result нь ERROR_PREREQUISITES
+
+❏ 06 Зарим холбоос үзсэн ERROR_PREREQUISITES
+↳ Оюутан
+  PUT http://localhost:3000/students/T6S [200 OK, 178B, 17ms]
+
+↳ Хичээл CS313
+  PUT http://localhost:3000/courses/T6C [200 OK, 178B, 19ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 215B, 32ms]
+  ✓  Зарим холбоос үзсэн: Статус 200
+  ✓  Зарим холбоос үзсэн: Result нь ERROR_PREREQUISITES
+
+❏ 02 Идэвхгүй оюутан бүртгүүлэхэд ERROR_INACTIVE_STUDENT
+↳ Оюутан
+  PUT http://localhost:3000/students/T3S [200 OK, 178B, 61ms]
+
+↳ Хичээл CS313
+  PUT http://localhost:3000/courses/T3C [200 OK, 178B, 34ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 198B, 24ms]
+  ✓  Идэвхгүй оюутан: Статус 200
+  ✓  Идэвхгүй оюутан: Result нь ERROR_INACTIVE_STUDENT
+
+❏ 04 Хичээл байхгүй
+↳ Оюутан
+  PUT http://localhost:3000/students/T4S [200 OK, 178B, 30ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 191B, 4ms]
+  ✓  Хичээл байхгүй: Статус 200
+  ✓  Хичээл байхгүй: Result нь ERROR_NO_COURSE
+
+❏ 08 courseID дутуу үед ERROR_BAD_REQUIST
+↳ Оюутан
+  PUT http://localhost:3000/students/T8S [200 OK, 178B, 14ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [400 Bad Request, 202B, 7ms]
+  ✓  courseID дутуу: статус 400
+  ✓  courseID дутуу: result нь ERROR_BAD_REQUEST
+
+❏ 07 Идэвхгүй оюутан Хичээл байхгүй
+↳ Оюутан
+  PUT http://localhost:3000/students/T7S [200 OK, 178B, 18ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 198B, 8ms]
+  ✓  Идэвхгүй оюутан хичээл байхгүй: Статус 200
+  ✓  Идэвхгүй оюутан хичээл байхгүй: Result нь ERROR_INACTIVE_STUDENT
+
+❏ 03 Байхгүй оюутан бүртгүүлэхэд ERROR_NO_STUDENT
+↳ Хичээл CS313
+  PUT http://localhost:3000/courses/T2C [200 OK, 178B, 14ms]
+
+↳ Бүртгэл
+  POST http://localhost:3000/registrations [200 OK, 192B, 18ms]
+  ✓  Байхгүй оюутан: Статус 200
+  ✓  Байхгүй оюутан: Result нь ERROR_NO_STUDENT
+
+┌─────────────────────────┬───────────────────┬──────────────────┐
+│                         │          executed │           failed │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              iterations │                 1 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│                requests │                20 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│            test-scripts │                28 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│      prerequest-scripts │                20 │                0 │
+├─────────────────────────┼───────────────────┼──────────────────┤
+│              assertions │                17 │                0 │
+├─────────────────────────┴───────────────────┴──────────────────┤
+│ total run duration: 3.1s                                       │
+├────────────────────────────────────────────────────────────────┤
+│ total data received: 475B (approx)                             │
+├────────────────────────────────────────────────────────────────┤
+│ average response time: 28ms [min: 4ms, max: 146ms, s.d.: 31ms] │
+└────────────────────────────────────────────────────────────────┘
